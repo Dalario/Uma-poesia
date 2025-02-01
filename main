@@ -1,0 +1,77 @@
+import customtkinter as ctk
+from PIL import Image
+
+def AbrePoesia(estado):
+    if estado == "Estressada nivel 1":
+        with open("poesias/Estre1.txt", "r", encoding= "utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    elif estado == "Estressada nivel 2":
+        with open ("poesias/Estre2.txt", "r", encoding="utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    elif estado == "Feliz nivel 1":
+        with open("poesias/Feliz1.txt", "r", encoding= "utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    elif estado == "Feliz nivel 2":
+        with open("poesias/Feliz2.txt", "r", encoding= "utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    elif estado == "Deprê 1":
+        with open("poesias/Me1.txt", "r", encoding="utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    elif estado == "Deprê 2":
+        with open("poesias/Me2.txt", "r", encoding= "utf-8") as arquivo:
+            escpoesia = arquivo.read()
+            print(escpoesia)
+
+    else:
+        escpoesia = "Você não escolheu uma poesia :(\nTente novamente"
+    return escpoesia
+
+
+def tela2():
+    janela2 = ctk.CTkToplevel(janela)
+
+    CaixaDeTexto = ctk.CTkTextbox(janela2, width= 450, height= 980, font= ("Arial bold", 20))
+    CaixaDeTexto.pack(pady= 20)
+    print(esc.get())
+    CaixaDeTexto.insert("0.0", text = AbrePoesia(str(esc.get())))
+
+    janela2.geometry("500x600")
+
+
+    janela2.mainloop()
+
+janela = ctk.CTk()
+janela._set_appearance_mode("system")
+janela.title("Uma Poesia")
+janela.geometry("900x500")
+
+img = ctk.CTkImage(light_image= Image.open("./imagens/icon.png"), dark_image= Image.open("./imagens/icon.png"), size= (100, 100))
+
+logo = ctk.CTkLabel(janela, text="UMA POESIA", font=("Arial bold", 50))
+
+logo.pack(padx = 20, pady= 20)
+
+icon = ctk.CTkLabel(janela, text=None, image= img).place(x = 190, y= 10)
+
+inst= ctk.CTkLabel(janela, text= "Olá, selecione como está se sentindo hoje\n E eu te mostro uma POESIA", font=("Arial", 20))
+inst.pack(pady= 20)
+
+esc = ctk.CTkOptionMenu(janela, values= ["Estressada nivel 1","Estressada nivel 2",
+"Feliz nivel 1", "Feliz nivel 2", "Deprê 1", "Deprê 2",], width= 280, height=40)
+esc.set("Selecione o seu humor...")
+esc.pack(pady= 20)
+
+btn = ctk.CTkButton(janela, text = "Mostrar", width= 140, height= 40, corner_radius= 100, command=tela2)
+btn.pack(pady= 20)
+
+janela.mainloop()
