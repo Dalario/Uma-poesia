@@ -1,77 +1,90 @@
 import customtkinter as ctk
 from PIL import Image
+from random import choice
+import os 
+import sys
+def Feliz():
+    lista = ["Feliz1", "Feliz2", "Feliz3", "Feliz4", "Feliz5"]
+    esc = choice(lista)
+    tela2(esc)
 
-def AbrePoesia(estado):
-    if estado == "Estressada nivel 1":
-        with open("poesias/Estre1.txt", "r", encoding= "utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
+def Bem():
+    lista= ["Bem1", "Bem2", "Bem3", "Bem4", "Bem5"]
+    esc = choice(lista)
+    tela2(esc)
 
-    elif estado == "Estressada nivel 2":
-        with open ("poesias/Estre2.txt", "r", encoding="utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
+def Ok():
+    lista = ["Ok1", "Ok2","Ok3", "Ok4", "Ok5"]
+    esc = choice(lista)
+    tela2(esc)
 
-    elif estado == "Feliz nivel 1":
-        with open("poesias/Feliz1.txt", "r", encoding= "utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
+def Triste():
+    lista = ["Triste1", "Triste2", "Triste3", "Triste4", "Triste5"]
+    esc = choice(lista)
+    tela2(esc)
 
-    elif estado == "Feliz nivel 2":
-        with open("poesias/Feliz2.txt", "r", encoding= "utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
+def Nada_Bem():
+    lista= ["NadaBem1", "NadaBem2", "NadaBem3", "NadaBem4", "NadaBem5"]
+    esc = choice(lista)
+    tela2(esc)
 
-    elif estado == "Deprê 1":
-        with open("poesias/Me1.txt", "r", encoding="utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
-
-    elif estado == "Deprê 2":
-        with open("poesias/Me2.txt", "r", encoding= "utf-8") as arquivo:
-            escpoesia = arquivo.read()
-            print(escpoesia)
-
-    else:
-        escpoesia = "Você não escolheu uma poesia :(\nTente novamente"
-    return escpoesia
-
-
-def tela2():
-    janela2 = ctk.CTkToplevel(janela)
-
-    CaixaDeTexto = ctk.CTkTextbox(janela2, width= 450, height= 980, font= ("Arial bold", 20))
+def tela2(esc):
+    print(esc)
+    janela2 = ctk.CTkToplevel(janela,fg_color="#d5b3ff")
+    janela2.title("Poesia")
+    CaixaDeTexto = ctk.CTkTextbox(janela2, width= 650, height= 980, font= ("SITKA SUBHEADING", 22),fg_color="#ede7f6", text_color="black",scrollbar_button_color="#9363ad",scrollbar_button_hover_color="#7e5594")
     CaixaDeTexto.pack(pady= 20)
-    print(esc.get())
-    CaixaDeTexto.insert("0.0", text = AbrePoesia(str(esc.get())))
+    with open(f"poesias/{esc}.txt", "r", encoding= "utf-8") as arquivo:
+        poesia = arquivo.read()
+        CaixaDeTexto.insert("0.0", text = poesia)
 
-    janela2.geometry("500x600")
+    janela2.geometry("700x600")
 
 
     janela2.mainloop()
 
-janela = ctk.CTk()
+janela = ctk.CTk(fg_color="#d5b3ff")
 janela._set_appearance_mode("system")
 janela.title("Uma Poesia")
-janela.geometry("900x500")
+janela.geometry("1000x500")
+janela.resizable(width= True, height= False)
 
-img = ctk.CTkImage(light_image= Image.open("./imagens/icon.png"), dark_image= Image.open("./imagens/icon.png"), size= (100, 100))
 
-logo = ctk.CTkLabel(janela, text="UMA POESIA", font=("Arial bold", 50))
 
-logo.pack(padx = 20, pady= 20)
+img = ctk.CTkImage(light_image= Image.open("./imagens/inconp.png"), dark_image= Image.open("./imagens/inconp.png"), size= (500, 180))
 
-icon = ctk.CTkLabel(janela, text=None, image= img).place(x = 190, y= 10)
+emojif = ctk.CTkImage(light_image= Image.open("./imagens/EmojiFeliz.png"), dark_image= Image.open("./imagens/EmojiFeliz.png"), size= (100, 100))
 
-inst= ctk.CTkLabel(janela, text= "Olá, selecione como está se sentindo hoje\n E eu te mostro uma POESIA", font=("Arial", 20))
+emojib= ctk.CTkImage(light_image= Image.open("./imagens/EmojiBem.png"), dark_image= Image.open("./imagens/EmojiBem.png"), size= (91, 91))
+
+emojio= ctk.CTkImage(light_image= Image.open("./imagens/EmojiOk.png"), dark_image= Image.open("./imagens/EmojiOk.png"), size = (100, 100))
+
+emojit = ctk.CTkImage(light_image= Image.open("./imagens/EmojiTriste.png"), dark_image= Image.open("./imagens/EmojiTriste.png"), size= (96, 100))
+
+emojin = ctk.CTkImage(light_image= Image.open("./imagens/EmojiNadaBem.png"), dark_image= Image.open("./imagens/EmojiNadaBem.png"), size= (109, 100))
+
+
+icon = ctk.CTkLabel(janela, text=None, image= img)
+icon.pack()
+
+
+inst= ctk.CTkLabel(janela, text= "Olá, deixe-me sentir a sua alma hoje\nEscolha sua emoção e eu lhe darei uma poesia como resposta.", font=("EDWARDIAN SCRIPT ITC", 50), text_color="black")
 inst.pack(pady= 20)
 
-esc = ctk.CTkOptionMenu(janela, values= ["Estressada nivel 1","Estressada nivel 2",
-"Feliz nivel 1", "Feliz nivel 2", "Deprê 1", "Deprê 2",], width= 280, height=40)
-esc.set("Selecione o seu humor...")
-esc.pack(pady= 20)
+btnf = ctk.CTkButton(janela,image= emojif, text= "", width= 0, height= 0, corner_radius= 100,command= Feliz ,fg_color= "#d5b3ff", text_color="black", hover=0)
+btnf.place(x = 120, y =325)
 
-btn = ctk.CTkButton(janela, text = "Mostrar", width= 140, height= 40, corner_radius= 100, command=tela2)
-btn.pack(pady= 20)
+btnb = ctk.CTkButton(janela, text= "", image= emojib, width= 0, height= 0, corner_radius= 100, command= Bem, fg_color= "#d5b3ff", text_color="black", hover=0)
+btnb.place(x = 260, y = 325)
+
+btno = ctk.CTkButton(janela, text="", image= emojio,width= 0, height= 0, corner_radius= 100, command= Ok, fg_color= "#d5b3ff", text_color="black", hover= 0)
+btno.place(x = 410, y = 325)
+
+bntt = ctk.CTkButton(janela, text= "",image= emojit ,width= 0, height= 0, corner_radius= 100, command= Triste, fg_color= "#d5b3ff", text_color="black", hover= 0)
+bntt.place(x = 560, y = 325)
+
+bntnb= ctk.CTkButton(janela, text = "",image= emojin ,width= 0, height= 0, corner_radius=100, command=Nada_Bem, fg_color= "#d5b3ff", text_color="black", hover=0)
+bntnb.place(x = 700, y= 325 )
+
 
 janela.mainloop()
